@@ -1,0 +1,134 @@
+.mat-table .mat-header-cell {
+  background-color: #e2e5e8;
+  font-size: 1em;
+  font-weight: bold;
+}
+.mat-column-name {
+  flex: 0 0 60%;
+}
+.mat-column-field_value {
+  flex: 0 0 40%;
+}
+table.mat-table {
+  display: table;
+}
+
+.mat-row:hover {
+  /* background-color: #fcf3cf; */
+  cursor: pointer;
+}
+
+.mat-column-workorderNo {
+  flex: 0 0 15%;
+}
+.mat-column-workorderType {
+  flex: 0 0 5%;
+}
+.mat-column-equipmentName {
+  flex: 0 0 20%;
+}
+/* .mat-column-id {
+  flex: 0 0 10%;
+}
+.mat-column-file_name {
+  flex: 0 0 40%;
+}
+.mat-column-file_type {
+  flex: 0 0 5%;
+} */
+.mat-column-actions {
+  flex: 0 0 30%;
+}
+.highlight {
+  background: #fcf3cf; /* green */
+}
+.mat-tree-node {
+  padding: 0;
+}
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media screen and (max-width: 960px) {
+  .mat-table {
+    border: 0;
+    vertical-align: middle;
+  }
+
+  .mat-table caption {
+    font-size: 1em;
+  }
+
+   /* Enable this to hide header */
+  .mat-table .mat-header-cell {
+
+    border: 10px solid;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+
+  .mat-table .mat-row {
+    border-bottom: 5px solid #ddd;
+    display: block;
+  }
+  /*
+  .mat-table .mat-row:nth-child(even) {background: #CCC}
+  .mat-table .mat-row:nth-child(odd) {background: #FFF}
+  */
+  .mat-table .mat-cell {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: 1em;
+    text-align: right;
+    font-weight: bold;
+    height: 30px;
+    margin-bottom: 4%;
+  }
+  .mat-table .mat-cell:before {
+    /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+    content: attr(data-label);
+    float: left;
+    text-transform: uppercase;
+    font-weight: normal;
+
+    font-size: 0.85em;
+  }
+  .mat-table .mat-cell:last-child {
+    border-bottom: 0;
+  }
+  .mat-table .mat-cell:first-child {
+    margin-top: 4%;
+  }
+}
+
+.lightfont{
+  font-weight: 900;
+}
+
+.error-msg{
+  color: red;
+  text-align: center;
+  background: #ffd8d8;
+  padding: 14px;
+  width: 100%;
+}
+
+.dialog{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 40px;
+  }
+  .mat-dialog-actions{
+    justify-content: flex-end;
+    }

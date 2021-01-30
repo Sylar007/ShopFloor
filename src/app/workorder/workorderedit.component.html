@@ -1,0 +1,241 @@
+<ng-template #itemTemplate let-item="item" let-onCollapseExpand="onCollapseExpand"
+  let-onCheckedChange="onCheckedChange">
+  <div class="form-inline row-item">
+    <i *ngIf="item.children" class="mr-1" (click)="onCollapseExpand()" aria-hidden="true" [ngSwitch]="item.collapsed">
+      <svg *ngSwitchCase="true" width="0.8rem" height="0.8rem" viewBox="0 0 16 16" class="bi bi-caret-right-fill"
+        fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+      </svg>
+      <svg *ngSwitchCase="false" width="0.8rem" height="0.8rem" viewBox="0 0 16 16" class="bi bi-caret-down-fill"
+        fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+      </svg>
+    </i>
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" [(ngModel)]="item.checked" (ngModelChange)="onCheckedChange()"
+        [disabled]="item.disabled" [indeterminate]="item.indeterminate" />
+      <label class="form-check-label" (click)="item.checked = !item.checked; onCheckedChange()">
+        {{item.text}}
+      </label>
+      <!-- <label class="form-check-label ml-2" *ngIf="!item.children" [innerHTML]="item.value[0].url">
+        <i aria-hidden="true" title="Remove">
+          <svg width="1rem" height="1rem" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+            <path fill-rule="evenodd"
+              d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+          </svg>
+        </i>
+      </label> -->
+      <div *ngIf="!item.children" [innerHTML]="item.value[0].url | sanitizeHtml">
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<app-card cardTitle="Work Order Information" [options]="false">
+  <aw-wizard #wizard class="arc-wizard" navBarLayout="large-filled-symbols">
+    <aw-wizard-step stepTitle="Basic Info" [navigationSymbol]="{ symbol: '&#xe8e9;', fontFamily: 'feather' }">
+      <form action="javascript:" #navigationForm=ngForm>
+        <div class="row invoive-info">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="form-control-label" for="wo_name">Work Order Name</label>
+              <input class="form-control input-md" id="wo_name" name="wo_name" type="text"
+                placeholder="Enter Work Order Name"
+                [ngClass]="{'is-invalid': !orderName.valid && (orderName.dirty || orderName.touched || isSubmit)}"
+                #orderName="ngModel" required orderName [(ngModel)]="formInput.orderName">
+              <label *ngIf="!orderName.valid && (orderName.dirty || orderName.touched || isSubmit)"
+                id="validation-orderName-error"
+                class="error jquery-validation-error small form-text invalid-feedback">Please enter a valid Work Order
+                Name</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="form-label">Assign To :</label>
+              <select name="select" class="form-control form-control-default" name="asignee_user_id"
+                id="asignee_user_id"
+                [ngClass]="{'is-invalid': !assignTo.valid && (assignTo.dirty || assignTo.touched || isSubmit)}"
+                #assignTo="ngModel" required [(ngModel)]="formInput.assignTo">
+                <option [ngValue]="null">Select User</option>
+                <option *ngFor="let assignSelection of assignSelections" [value]="assignSelection.id">
+                  {{assignSelection.firstName}}
+                </option>
+              </select>
+              <label *ngIf="!assignTo.valid && (assignTo.dirty || assignTo.touched || isSubmit)"
+                id="validation-assignTo-error"
+                class="error jquery-validation-error small form-text invalid-feedback">The
+                Assign To selection should be required.</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="form-label">Work Order Type</label>
+              <select class="form-control form-control-default" name="wo_type_id" id="wo_type_id"
+                (change)='onOptionsCategorySelected($event)'
+                [ngClass]="{'is-invalid': !workorderType.valid && (workorderType.dirty || workorderType.touched || isSubmit)}"
+                #workorderType="ngModel" required [(ngModel)]="formInput.workorderType">
+                <option [ngValue]="null">Select Category</option>
+                <option *ngFor="let workordertypeSelection of workordertypeSelections"
+                  [value]="workordertypeSelection.id">
+                  {{workordertypeSelection.description}}
+                </option>
+              </select>
+              <label *ngIf="!workorderType.valid && (workorderType.dirty || workorderType.touched || isSubmit)"
+                id="validation-workorderType-error"
+                class="error jquery-validation-error small form-text invalid-feedback">The
+                Order Type selection should be required.</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="form-label">Priority</label>
+              <select class="form-control form-control-default" name="wo_priority_id" id="wo_priority_id"
+                [ngClass]="{'is-invalid': !priority.valid && (priority.dirty || priority.touched || isSubmit)}"
+                #priority="ngModel" required [(ngModel)]="formInput.priority">
+                <option [ngValue]="null">Select Priority</option>
+                <option *ngFor="let prioritySelection of prioritySelections" [value]="prioritySelection.id">
+                  {{prioritySelection.name}}
+                </option>
+              </select>
+              <label *ngIf="!priority.valid && (priority.dirty || priority.touched || isSubmit)"
+                id="validation-priority-error"
+                class="error jquery-validation-error small form-text invalid-feedback">The
+                Priority selection should be required.</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="form-label">Remarks</label>
+              <textarea class="form-control" name="remarks" id="remarks"
+                [ngClass]="{'is-invalid': !remarks.valid && (remarks.dirty || remarks.touched || isSubmit)}"
+                #remarks="ngModel" required [(ngModel)]="formInput.remarks"></textarea>
+              <label *ngIf="!remarks.valid && (remarks.dirty || remarks.touched || isSubmit)"
+                id="validation-remarks-error" class="error jquery-validation-error small form-text invalid-feedback">The
+                Remarks field should be required.</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Planned Execution DateTime (From)</label>
+            <div class="input-group">
+              <input type="text" class="form-control" autocomplete="on" placeholder="yyyy-mm-dd" name="dpFrom"
+                ngbDatepicker #d="ngbDatepicker"
+                [ngClass]="{'is-invalid': !dpFrom.valid && (dpFrom.dirty || dpFrom.touched || isSubmit)}"
+                #dpFrom="ngModel" required [(ngModel)]="formInput.dpFrom">
+              <div class="input-group-append">
+                <span class="input-group-text" (click)="d.toggle()">
+                  <i class="fa fa-calendar"></i>
+                </span>
+              </div>
+              <input type="time" name="timeFrom" class="form-control" placeholder="Date" atp-time-picker value="20:55"
+                [ngClass]="{'is-invalid': !timeFrom.valid && (timeFrom.dirty || timeFrom.touched || isSubmit)}"
+                #timeFrom="ngModel" required [(ngModel)]="formInput.timeFrom">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Planned Execution DateTime (To)</label>
+            <div class="input-group">
+              <input type="text" class="form-control" autocomplete="on" placeholder="yyyy-mm-dd" name="dpTo"
+                ngbDatepicker #dTo="ngbDatepicker"
+                [ngClass]="{'is-invalid': !dpTo.valid && (dpTo.dirty || dpTo.touched || isSubmit)}" #dpTo="ngModel"
+                required [(ngModel)]="formInput.dpTo">
+              <div class="input-group-append">
+                <span class="input-group-text" (click)="dTo.toggle()">
+                  <i class="fa fa-calendar"></i>
+                </span>
+              </div>
+              <input type="time" name="timeTo" class="form-control" placeholder="Date" atp-time-picker value="20:55"
+                [ngClass]="{'is-invalid': !timeTo.valid && (timeTo.dirty || timeTo.touched || isSubmit)}"
+                #timeTo="ngModel" required [(ngModel)]="formInput.timeTo">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="form-label">Notification Setting</label>
+              <select class="form-control form-control-default" name="notification_id" id="notification_id"
+                [ngClass]="{'is-invalid': !notification_id.valid && (notification_id.dirty || notification_id.touched || isSubmit)}"
+                #notification_id="ngModel" required [(ngModel)]="formInput.notification_id">
+                <option [ngValue]="null">Select Notification</option>
+                <option *ngFor="let notificationSelection of notificationSelections" [value]="notificationSelection.id">
+                  {{notificationSelection.name}}
+                </option>
+              </select>
+              <label *ngIf="!notification_id.valid && (notification_id.dirty || notification_id.touched || isSubmit)"
+                id="validation-notification_id-error"
+                class="error jquery-validation-error small form-text invalid-feedback">The
+                Notification selection should be required.</label>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 centered-content">
+          <div class="btn-group mt-10">
+            <button type="button" [disabled]="!navigationForm.valid" (click)="saveStep1(navigationForm)"
+              class="btn btn-primary btn-sm" awNextStep>Continue</button>
+          </div>
+        </div>
+      </form>
+    </aw-wizard-step>
+    <aw-wizard-step stepTitle="Parts" [navigationSymbol]="{ symbol: '&#xe88c;', fontFamily: 'feather' }">
+      <div class="col-sm-12">
+        <h6>Specification:</h6>
+        <ngx-treeview [config]="config" [items]="items" (selectedChange)="getselectedItems($event)"
+          [itemTemplate]="itemTemplate">
+        </ngx-treeview>
+      </div>
+      <p></p>
+      <p></p>
+      <div class="col-sm-12">
+        <h6>Part List:</h6>
+        <table mat-table [dataSource]="dataSourcePart"
+          class="table table-responsive invoice-table invoice-order table-borderless">
+
+          <ng-container matColumnDef="part_name">
+            <th mat-header-cell *matHeaderCellDef> Part Name </th>
+            <td mat-cell *matCellDef="let elementPart"> {{elementPart.part_name}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="part_code">
+            <th mat-header-cell *matHeaderCellDef> Part Code </th>
+            <td mat-cell *matCellDef="let elementPart"> {{elementPart.part_code}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="serial_no">
+            <th mat-header-cell *matHeaderCellDef> Serial No </th>
+            <td mat-cell *matCellDef="let elementPart"> {{elementPart.serial_no}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedPartColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedPartColumns;"
+            [ngClass]="{'editable-row': workorderPart.id === row.id}"></tr>
+        </table>
+        <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+      </div>
+      <p></p>
+      <p></p>
+      <div class="col-sm-12 centered-content">
+        <div class="btn-group mt-10">
+          <button type="button" class="btn btn-secondary btn-sm" awPreviousStep>Back</button>
+          <button type="button" class="btn btn-primary btn-sm" (click)="saveStep2()" awNextStep>Continue</button>
+        </div>
+      </div>
+    </aw-wizard-step>
+    <aw-wizard-step stepTitle="Miscellaneous Items" [navigationSymbol]="{ symbol: '&#xe840;', fontFamily: 'feather' }">
+      <div class="row invoive-info">
+        <div class="col-sm-12 centered-content" *ngIf="workorderSet">
+          <app-workorderfile [woId]="woId" [viewOnly]=false></app-workorderfile>
+          <p></p>
+          <p></p>
+        </div>
+        <div class="col-sm-12 centered-content">
+          <div class="btn-group mt-10">
+            <button type="button" class="btn btn-secondary btn-sm" awPreviousStep>Back</button>
+          </div>
+        </div>
+      </div>
+    </aw-wizard-step>
+  </aw-wizard>
+</app-card>

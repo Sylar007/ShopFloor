@@ -1,0 +1,44 @@
+<app-card cardTitle="Equipment Type Information" [options]="false">
+  <aw-wizard #wizard class="arc-wizard" navBarLayout="large-filled-symbols">
+    <aw-wizard-step stepTitle="Basic Info" [navigationSymbol]="{ symbol: '&#xe8e9;', fontFamily: 'feather' }">
+      <form action="javascript:" #navigationForm=ngForm>
+        <div class="row invoive-info">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Equipment Type Name</label>
+              <input class="form-control input-md" name="name" type="text" placeholder="Enter Description"
+                [ngClass]="{'is-invalid': !name.valid && (name.dirty || name.touched || isSubmit)}"
+                #name="ngModel" required [(ngModel)]="formInput.name">
+              <label *ngIf="!name.valid && (name.dirty || name.touched || isSubmit)"
+                id="validation-name-error"
+                class="error jquery-validation-error small form-text invalid-feedback">Please enter a Equipment Name</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Description</label>
+              <input class="form-control input-md" name="description" type="text" placeholder="Enter Description"
+                [ngClass]="{'is-invalid': !description.valid && (description.dirty || description.touched || isSubmit)}"
+                #description="ngModel" required description [(ngModel)]="formInput.description">
+              <label *ngIf="!description.valid && (description.dirty || description.touched || isSubmit)"
+                id="validation-description-error"
+                class="error jquery-validation-error small form-text invalid-feedback">Please enter a Description</label>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 centered-content">
+          <div class="btn-group mt-10">
+            <button type="button" [disabled]="!navigationForm.valid" (click)="saveStep1(navigationForm)"
+              class="btn btn-primary btn-sm">Save</button>
+          </div>
+        </div>
+      </form>
+    </aw-wizard-step>
+  </aw-wizard>
+</app-card>
+<app-toast uID="toastAlertAdd" toastTitle="EAMMS" toastCaption="Operation">
+  Record successfully added
+</app-toast>
+<app-toast uID="toastAlert" toastTitle="EAMMS" toastCaption="Operation">
+  Record successfully updated
+</app-toast>

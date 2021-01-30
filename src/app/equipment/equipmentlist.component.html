@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card [options]="false">
+      <div class="row invoive-info">
+        <div class="col-md-6"></div>
+        <div class="col-md-6 text-right">
+          <button type="button" class="btn btn-primary" (click)="addEquipment()"><i
+              class="feather icon-file-plus"></i>Add</button>
+          <button type="button" class="btn btn-secondary" (click)="editEquipment(this.selectedEquipmentNo)"><i
+              class="feather icon-edit"></i>Update</button>
+          <button type="button" class="btn btn-success" (click)="logEquipment(this.selectedEquipmentNo)"><i
+              class="feather icon-list"></i>Log</button>
+        </div>
+      </div>
+
+      <mat-table [dataSource]="dataSource" matSort>
+
+        <!-- ID Column -->
+        <ng-container matColumnDef="equipment_no">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Equipment No </mat-header-cell>
+          <mat-cell *matCellDef="let element" data-label="equipment_no"> {{element.equipment_no}} </mat-cell>
+        </ng-container>
+
+        <!-- Progress Column -->
+        <ng-container matColumnDef="model_no">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Model No </mat-header-cell>
+          <mat-cell *matCellDef="let element" data-label="model_no"> {{element.model_no}} </mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="equipment_name_model_name">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Model Name </mat-header-cell>
+          <mat-cell *matCellDef="let element" data-label="equipment_name_model_name">
+            {{element.equipment_name_model_name}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="serial_no">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Serial No </mat-header-cell>
+          <mat-cell *matCellDef="let element" data-label="serial_no"> {{element.serial_no}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="location">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Location </mat-header-cell>
+          <mat-cell *matCellDef="let element" data-label="location"> {{element.location}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let element; columns: displayedColumns" (click)="highlight(element)"
+          (dblclick)="openEquipment(element.equipment_no)" [ngClass]="{'highlight': selectedRowIndex == element.id}">
+        </mat-row>
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+    </app-card>
+  </div>
+</div>

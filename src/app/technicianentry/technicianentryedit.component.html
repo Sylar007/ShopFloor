@@ -1,0 +1,83 @@
+<app-card cardTitle="Schedule Job Information" [options]="false">
+  <form action="javascript:" #navigationForm=ngForm>
+    <div class="row invoive-info">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="lightfont">Work Station</label> :
+          <label class="form-control-label">{{formInput.station_name}}</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="lightfont">Schedule Type</label> :
+          <label class="form-control-label">{{formInput.schedule_name}}</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="lightfont">Shift Type</label> :
+          <label class="form-control-label">{{formInput.shift_name}}</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="lightfont">Schedule Start Date</label> :
+          <label class="form-control-label">{{formInput.startDate}}</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="lightfont">Schedule End Date</label> :
+          <label class="form-control-label">{{formInput.endDate}}</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="input-group">
+          <label class="lightfont">Work Station Status</label>&nbsp;&nbsp;&nbsp;
+          <select class="form-control form-control-default" name="flow_id" id="flow_id"
+          (change)='onOptionsStatusSelected($event)'
+            [ngClass]="{'is-invalid': !flow_name.valid && (flow_name.dirty || flow_name.touched || isSubmit)}"
+            #flow_name="ngModel" required [(ngModel)]="formInput.flow_name">
+            <option [ngValue]="null">Select</option>
+            <option *ngFor="let flowSelection of flowSelections" [value]="flowSelection.id">
+              {{flowSelection.flow_name}}</option>
+          </select>
+          <label *ngIf="!flow_name.valid && (flow_name.dirty || flow_name.touched || isSubmit)"
+            id="validation-flow_name-error"
+            class="error jquery-validation-error small form-text invalid-feedback">The
+            Status should be required.</label>
+        </div>
+      </div>
+      <ng-container *ngIf="isParameter; else elseTemplate">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="lightfont">Mould Parameter</label>
+            <input class="form-control input-md" name="parameter" type="text" placeholder="Enter Parameter"
+              [ngClass]="{'is-invalid': !parameter.valid && (parameter.dirty || parameter.touched || isSubmit)}"
+              #parameter="ngModel" required [(ngModel)]="formInput.parameter">
+            <label *ngIf="!parameter.valid && (parameter.dirty || parameter.touched || isSubmit)"
+              id="validation-quantity-error" class="error jquery-validation-error small form-text invalid-feedback">Please
+              enter a valid Parameter</label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="lightfont">Recommendation</label>
+            <input class="form-control input-md" name="recommendation" type="text" placeholder="Enter Recommendation"
+              [ngClass]="{'is-invalid': !recommendation.valid && (recommendation.dirty || recommendation.touched || isSubmit)}"
+              #recommendation="ngModel" [(ngModel)]="formInput.recommendation">
+          </div>
+        </div>
+    </ng-container>
+    <ng-template #elseTemplate>
+    </ng-template>
+    </div>
+    <div class="col-sm-12 centered-content">
+      <div class="btn-group mt-10">
+        <button type="button" class="btn btn-secondary btn-sm" (click)="back()">Back</button>
+        <button type="button" [disabled]="!navigationForm.valid" (click)="saveStep1(navigationForm)"
+          class="btn btn-primary btn-sm">Save</button>
+      </div>
+    </div>
+  </form>
+</app-card>

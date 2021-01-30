@@ -1,0 +1,42 @@
+<app-card *ngFor="let dashboard of dashboards" [options]="false">
+  <div class="row invoive-info">
+    <div class="col-md-3">
+      <img src="assets/images/profile.png">
+    </div>
+    <div class="col-md-8">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label class="lightfont">{{dashboard.woNo}}</label>
+          <label class="form-control-label">({{dashboard.woType}})</label>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label class="form-control-label">{{dashboard.woName}}</label>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label class="form-control-label">{{dashboard.equipmentNo}}</label> :
+          <label class="form-control-label">{{dashboard.equipmentName}} </label> /
+          <label class="form-control-label">{{dashboard.equipmentModel}} </label> /
+          <label class="form-control-label">{{dashboard.serialNo}}</label>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label class="form-control-label">Process</label> :
+          <label class="form-control-label">{{dashboard.processName}}</label>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <button type="button" class="btn btn-primary btn-sm" (click)="saveAssign(dashboard.id)">Accept</button>
+          <button type="button" class="btn btn-secondary btn-sm">Reject</button>
+         </div>
+      </div>
+    </div>
+    <div class="col-md-1">
+    </div>
+  </div>
+</app-card>

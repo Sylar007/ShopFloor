@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card [options]="false">
+      <div class="row invoive-info">
+        <div class="col-md-6"></div>
+        <div class="col-md-6 text-right">
+        <button type="button" class="btn btn-primary" (click)="addPart()"><i
+            class="feather icon-file-plus"></i>Add</button>
+        <button type="button" class="btn btn-secondary" (click)="editPart(this.selectedPartId)"><i
+            class="feather icon-edit"></i>Update</button>
+          </div>
+      </div>
+      <mat-table [dataSource]="dataSource" matSort>
+
+        <!-- ID Column -->
+        <ng-container matColumnDef="notificationName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+          <mat-cell *matCellDef="let element" data-label="notificationName"> {{element.notificationName}} </mat-cell>
+        </ng-container>
+
+        <!-- Progress Column -->
+        <ng-container matColumnDef="notificationReminder">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Reminder </mat-header-cell>
+          <mat-cell *matCellDef="let element" data-label="notificationReminder"> {{element.notificationReminder}} {{element.notificationReminderType}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="notificationFrequency">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Frequency </mat-header-cell>
+          <mat-cell *matCellDef="let element" data-label="notificationFrequency"> {{element.notificationFrequency}} {{element.notificationFrequencyType}}</mat-cell>
+        </ng-container>
+
+         <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef="let element" data-label="actions"></mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let element; columns: displayedColumns" (click)="highlight(element)"
+          (dblclick)="openPart(element.id)" [ngClass]="{'highlight': selectedRowIndex == element.id}">
+        </mat-row>
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+    </app-card>
+  </div>
+</div>

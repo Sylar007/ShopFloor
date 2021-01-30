@@ -1,0 +1,114 @@
+<app-card cardTitle="Schedule Job Information" [options]="false">
+  <form action="javascript:" #navigationForm=ngForm>
+    <div class="row invoive-info">
+      <div class="col-md-6">
+        <div class="input-group">
+          <label class="form-label">Part Set</label>&nbsp;&nbsp;&nbsp;
+          <input class="form-control" name="partset_code" type="text" placeholder="Enter Part Code"
+            #partset_code="ngModel" [(ngModel)]="formInput.partset_code">
+          <div class="input-group-append">
+            <button type="button" class="btn btn-primary btn-sm" (click)="openDialog()">Choose Schedule... </button>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="col-md-6">
+        <div class="form-group">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-label">Schedule Type</label>
+          <select class="form-control form-control-default" name="schedule_id" id="schedule_id"
+            [ngClass]="{'is-invalid': !schedule_name.valid && (schedule_name.dirty || schedule_name.touched || isSubmit)}"
+            #schedule_name="ngModel" required [(ngModel)]="formInput.schedule_name">
+            <option [ngValue]="null">Select</option>
+            <option *ngFor="let scheduleSelection of scheduleSelections" [value]="scheduleSelection.id">
+              {{scheduleSelection.schedule_name}}</option>
+          </select>
+          <label *ngIf="!schedule_name.valid && (schedule_name.dirty || schedule_name.touched || isSubmit)"
+            id="validation-schedule_name-error"
+            class="error jquery-validation-error small form-text invalid-feedback">The
+            Schedule Type should be required.</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-label">Shift Type</label>
+          <select class="form-control form-control-default" name="shift_id" id="shift_id"
+            [ngClass]="{'is-invalid': !shift_name.valid && (shift_name.dirty || shift_name.touched || isSubmit)}"
+            #shift_name="ngModel" required [(ngModel)]="formInput.shift_name">
+            <option [ngValue]="null">Select</option>
+            <option *ngFor="let shiftSelection of shiftSelections" [value]="shiftSelection.id">
+              {{shiftSelection.shift_name}}</option>
+          </select>
+          <label *ngIf="!shift_name.valid && (shift_name.dirty || shift_name.touched || isSubmit)"
+            id="validation-shift_name-error" class="error jquery-validation-error small form-text invalid-feedback">The
+            Shift Type should be required.</label>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Schedule Start Date</label>
+        <div class="input-group">
+          <input type="text" class="form-control" autocomplete="off" placeholder="yyyy-mm-dd" name="dpFrom" id="dpFrom"
+            ngbDatepicker #d="ngbDatepicker"
+            [ngClass]="{'is-invalid': !dpFrom.valid && (dpFrom.dirty || dpFrom.touched || isSubmit)}" #dpFrom="ngModel"
+            required [(ngModel)]="formInput.dpFrom">
+          <div class="input-group-append">
+            <span class="input-group-text" (click)="d.toggle()">
+              <i class="fa fa-calendar"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Schedule End Date</label>
+        <div class="input-group">
+          <input type="text" class="form-control" autocomplete="off" placeholder="yyyy-mm-dd" name="dpTo" ngbDatepicker
+            #dTo="ngbDatepicker" [ngClass]="{'is-invalid': !dpTo.valid && (dpTo.dirty || dpTo.touched || isSubmit)}"
+            #dpTo="ngModel" required [(ngModel)]="formInput.dpTo">
+          <div class="input-group-append">
+            <span class="input-group-text" (click)="dTo.toggle()">
+              <i class="fa fa-calendar"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-label">Required Quantity</label>
+          <input class="form-control input-md" name="quantity" type="text" placeholder="Enter Quantity"
+            [ngClass]="{'is-invalid': !quantity.valid && (quantity.dirty || quantity.touched || isSubmit)}"
+            #quantity="ngModel" required [(ngModel)]="formInput.quantity">
+          <label *ngIf="!quantity.valid && (quantity.dirty || quantity.touched || isSubmit)"
+            id="validation-quantity-error" class="error jquery-validation-error small form-text invalid-feedback">Please
+            enter a valid Quantity</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-label">Work Station</label>
+          <select class="form-control form-control-default" name="station_id" id="station_id"
+            [ngClass]="{'is-invalid': !station_name.valid && (station_name.dirty || station_name.touched || isSubmit)}"
+            #station_name="ngModel" required [(ngModel)]="formInput.station_name">
+            <option [ngValue]="null">Select</option>
+            <option *ngFor="let stationSelection of stationSelections" [value]="stationSelection.id">
+              {{stationSelection.station_name}}</option>
+          </select>
+          <label *ngIf="!station_name.valid && (station_name.dirty || station_name.touched || isSubmit)"
+            id="validation-station_name-error"
+            class="error jquery-validation-error small form-text invalid-feedback">The
+            Station should be required.</label>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 centered-content">
+      <div class="btn-group mt-10">
+        <button type="button" class="btn btn-secondary btn-sm" (click)="back()">Back</button>
+        <button type="button" [disabled]="!navigationForm.valid" (click)="saveStep1(navigationForm)"
+          class="btn btn-primary btn-sm">Save</button>
+      </div>
+    </div>
+  </form>
+</app-card>

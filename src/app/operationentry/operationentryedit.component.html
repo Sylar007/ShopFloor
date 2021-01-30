@@ -1,0 +1,235 @@
+<app-card cardTitle="Equipment Model Information" [options]="false">
+  <aw-wizard #wizard class="arc-wizard" navBarLayout="large-filled-symbols">
+    <aw-wizard-step stepTitle="Basic Info" [navigationSymbol]="{ symbol: '&#xe8e9;', fontFamily: 'feather' }">
+      <form action="javascript:" #navigationForm=ngForm>
+        <div class="row invoive-info">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Equipment Name</label>
+              <input class="form-control input-md" name="equipmentName" type="text" placeholder="Enter Equipment Name"
+              [ngClass]="{'is-invalid': !equipmentName.valid && (equipmentName.dirty || equipmentName.touched || isSubmit)}"
+              #equipmentName="ngModel" required [(ngModel)]="formInput.equipmentName">
+            <label *ngIf="!equipmentName.valid && (equipmentName.dirty || equipmentName.touched || isSubmit)"
+              id="validation-equipmentName-error"
+              class="error jquery-validation-error small form-text invalid-feedback">Please enter Equipment Name</label>
+
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Equipment Type Name</label>
+              <select class="form-control form-control-default" name="equipmentType"
+                [ngClass]="{'is-invalid': !equipmentType.valid && (equipmentType.dirty || equipmentType.touched || isSubmit)}"
+                #equipmentType="ngModel" required [(ngModel)]="formInput.equipmentType">
+                <option [ngValue]="null">Select Equipment Type</option>
+                <option *ngFor="let equipmentTypeSelection of equipmentTypeSelections" [value]="equipmentTypeSelection.id">
+                  {{equipmentTypeSelection.name}}</option>
+              </select>
+              <label *ngIf="!equipmentType.valid && (equipmentType.dirty || equipmentType.touched || isSubmit)"
+                id="validation-equipmentType-error"
+                class="error jquery-validation-error small form-text invalid-feedback">The
+                Equipment Type selection should be required.</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Process Name</label>
+              <input class="form-control input-md" name="processName" type="text" placeholder="Enter Process Name"
+                [ngClass]="{'is-invalid': !processName.valid && (processName.dirty || processName.touched || isSubmit)}"
+                #processName="ngModel" required [(ngModel)]="formInput.processName">
+              <label *ngIf="!processName.valid && (processName.dirty || processName.touched || isSubmit)"
+                id="validation-processName-error"
+                class="error jquery-validation-error small form-text invalid-feedback">Please enter a Process Name</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Model Name</label>
+              <input type="text" disabled class="form-control" name="modelName" #modelName="ngModel"
+                placeholder="Enter Model Name" [(ngModel)]="formInput.modelName">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Model No</label>
+              <input type="text" class="form-control" name="modelNo" #modelNo="ngModel"
+                placeholder="Enter Model No" [(ngModel)]="formInput.modelNo">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Manufacturer</label>
+              <input class="form-control input-md" name="manufacturer" type="text" placeholder="Enter Manufacturer"
+                [ngClass]="{'is-invalid': !manufacturer.valid && (manufacturer.dirty || manufacturer.touched || isSubmit)}"
+                #manufacturer="ngModel" required [(ngModel)]="formInput.manufacturer">
+              <label *ngIf="!manufacturer.valid && (manufacturer.dirty || manufacturer.touched || isSubmit)"
+                id="validation-manufacturer-error"
+                class="error jquery-validation-error small form-text invalid-feedback">Please enter a Manufacturer</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="lightfont">Sales Contact</label>
+            <div class="form-group row">
+              <input type="text" class="form-control col-sm-5" name="sales_contact_name" id="sales_name"
+                [ngClass]="{'is-invalid': !sales_contact_name.valid && (sales_contact_name.dirty || sales_contact_name.touched || isSubmit)}"
+                #sales_contact_name="ngModel" required [(ngModel)]="formInput.sales_contact_name"
+                placeholder="Enter Sales Contact Name">
+
+              <input type="text" class="form-control col-sm-5" name="sales_contact_no" id="sales_no"
+                [ngClass]="{'is-invalid': !sales_contact_no.valid && (sales_contact_no.dirty || sales_contact_no.touched || isSubmit)}"
+                #sales_contact_no="ngModel" required [(ngModel)]="formInput.sales_contact_no" placeholder="Enter Sales Contact No">
+              <label *ngIf="!sales_contact_name.valid && (sales_contact_name.dirty || sales_contact_name.touched || isSubmit)"
+                id="validation-sales_contact_name-error"
+                class="error jquery-validation-error small form-text invalid-feedback">The
+                Sales Contact field should be required.</label>
+              <label *ngIf="!sales_contact_no.valid && (sales_contact_no.dirty || sales_contact_no.touched || isSubmit)"
+                id="validation-sales_contact_no-error"
+                class="error jquery-validation-error small form-text invalid-feedback">The
+                Sales Contact No field should be required.</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="lightfont">Support Contact</label>
+            <div class="form-group row">
+              <input type="text" class="form-control col-sm-5" name="support_contact_name" id="support_contact_name"
+                #support_contact_name="ngModel" [(ngModel)]="formInput.support_contact_name" placeholder="Enter Support Name">
+              <input type="text" class="form-control col-sm-5" name="support_contact_no" id="support_contact_no" #support_contact_no="ngModel"
+                [(ngModel)]="formInput.support_contact_no" placeholder="Enter Support No">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Remarks</label>
+              <input type="text" class="form-control" name="remarks" #remarks="ngModel"
+                placeholder="Enter Remarks" [(ngModel)]="formInput.remarks">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 centered-content">
+          <div class="btn-group mt-10">
+            <button type="button" [disabled]="!navigationForm.valid" (click)="saveStep1(navigationForm)"
+              class="btn btn-primary btn-sm" awNextStep>Continue</button>
+          </div>
+        </div>
+      </form>
+    </aw-wizard-step>
+    <aw-wizard-step stepTitle="Specifications & Parts"
+      [navigationSymbol]="{ symbol: '&#xe88c;', fontFamily: 'feather' }">
+      <div class="col-sm-12">
+        <h6>Specification :</h6>
+        <form action="javascript:" #fieldForm=ngForm>
+          <div class="form-row">
+            <div class="form-group col-md-3">
+              <input type="text" class="form-control" name="name" placeholder="Enter Field Name"
+                [ngClass]="{'is-invalid': !name.valid && (name.dirty || name.touched || isSubmit)}" #name="ngModel"
+                required [(ngModel)]="formInputField.name">
+              <label *ngIf="!name.valid && (name.dirty || name.touched || isSubmit)" id="validation-name-error"
+                class="error jquery-validation-error small form-text invalid-feedback">The
+                Field Name should be required.</label>
+            </div>
+            <div class="form-group col-md-3">
+              <input type="text" class="form-control" name="field_value" placeholder="Enter Field Value"
+                [ngClass]="{'is-invalid': !field_value.valid && (field_value.dirty || field_value.touched || isSubmit)}"
+                #field_value="ngModel" required [(ngModel)]="formInputField.field_value">
+              <label *ngIf="!field_value.valid && (field_value.dirty || field_value.touched || isSubmit)"
+                id="validation-field_value-error"
+                class="error jquery-validation-error small form-text invalid-feedback">The
+                Field Value should be required.</label>
+            </div>
+            <div class="form-group col-md-6">
+              <ng-container *ngIf="isEditMode; else elseTemplate">
+                <button type="button" class="btn btn-primary" [disabled]="!fieldForm.valid"
+                  (click)="updateField(fieldForm)"><i class="feather icon-edit"></i>Update</button>
+                <button type="button" class="btn btn-secondary" (click)="cancelEdit(); fieldForm.reset()"><i
+                    class="feather icon-bell-off"></i>Cancel</button>
+              </ng-container>
+              <ng-template #elseTemplate>
+                <button type="button" class="btn btn-primary" [disabled]="!fieldForm.valid"
+                  (click)="addField(fieldForm)"><i class="feather icon-file-plus"></i>Add</button>
+              </ng-template>
+            </div>
+          </div>
+          <mat-table [dataSource]="dataSource" matSort>
+            <!-- ID Column -->
+            <ng-container matColumnDef="id">
+              <mat-header-cell *matHeaderCellDef> Id # </mat-header-cell>
+              <mat-cell *matCellDef="let element" data-label="id"> {{element.id}} </mat-cell>
+            </ng-container>
+
+            <!-- Progress Column -->
+            <ng-container matColumnDef="name">
+              <mat-header-cell *matHeaderCellDef> Field Name </mat-header-cell>
+              <mat-cell *matCellDef="let element" data-label="name"> {{element.name}} </mat-cell>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="field_value">
+              <mat-header-cell *matHeaderCellDef> Field Value </mat-header-cell>
+              <mat-cell *matCellDef="let element" data-label="field_value">
+                {{element.field_value}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <a href="javascript:void(0)" (click)="editItem(element)">Edit</a> |
+                <a href="javascript:void(0)" (click)="deleteItem(element.id)">Delete</a>
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"
+              [ngClass]="{'editable-row': equipmentModelField.id === row.id}">
+            </mat-row>
+          </mat-table>
+          <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+        </form>
+      </div>
+      <p></p>
+      <p></p>
+      <div class="col-sm-12">
+        <h6>Part List:</h6>
+        <mat-table [dataSource]="dataSourcePart" matSort>
+          <!-- ID Column -->
+          <ng-container matColumnDef="part_name">
+            <mat-header-cell *matHeaderCellDef> Part Name </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="part_name"> {{element.part_name}} </mat-cell>
+          </ng-container>
+
+          <!-- Progress Column -->
+          <ng-container matColumnDef="part_code">
+            <mat-header-cell *matHeaderCellDef> Part Code </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="part_code"> {{element.part_code}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="actions"></mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedPartColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedPartColumns;"
+            [ngClass]="{'editable-row': equipmentModelPart.id === row.id}">
+          </mat-row>
+        </mat-table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+      </div>
+      <p></p>
+      <p></p>
+      <div class="col-sm-12 centered-content">
+        <div class="btn-group mt-10">
+          <button type="button" class="btn btn-secondary btn-sm" awPreviousStep>Back</button>
+          <button type="button" class="btn btn-primary btn-sm" awNextStep>Continue</button>
+        </div>
+      </div>
+    </aw-wizard-step>
+    <aw-wizard-step stepTitle="Links & Files" [navigationSymbol]="{ symbol: '&#xe840;', fontFamily: 'feather' }">
+      <h6>Files:</h6>
+      <div class="col-sm-12 centered-content">
+        <div class="btn-group mt-10">
+          <button type="button" class="btn btn-secondary btn-sm" awPreviousStep>Back</button>
+        </div>
+      </div>
+    </aw-wizard-step>
+  </aw-wizard>
+</app-card>

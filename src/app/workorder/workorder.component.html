@@ -1,0 +1,143 @@
+<app-card cardTitle="Work Order Information" [options]="false">
+  <aw-wizard #wizard class="arc-wizard" navBarLayout="large-filled-symbols">
+    <aw-wizard-step stepTitle="Basic Info" [navigationSymbol]="{ symbol: '&#xe8e9;', fontFamily: 'feather' }"
+      [style.font-weight]="900">
+      <form action="javascript:">
+        <div class="row invoive-info">
+          <div class="col-md-1 col-sm-1 col-xs-1">
+          </div>
+          <div class="col-md-5 col-sm-5 col-xs-12 invoice-client-info">
+            <table class="table table-responsive invoice-table invoice-order table-borderless">
+              <tbody>
+                <tr>
+                  <th>Equipment No : </th>
+                  <td>{{scannerWorkOrder?.equipment_no}}</td>
+                </tr>
+                <tr>
+                  <th>Work Order Id : </th>
+                  <td>{{scannerWorkOrder?.id}}</td>
+                </tr>
+                <tr>
+                  <th>Work Order No : </th>
+                  <td>
+                    <span class="label label-warning">{{scannerWorkOrder?.wo_no}}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Work Order Name : </th>
+                  <td>
+                    {{scannerWorkOrder?.wo_name}}
+                  </td>
+                </tr>
+                <tr>
+                  <th>Equipment Serial No : </th>
+                  <td>
+                    {{scannerWorkOrder?.equipment_serialno}}
+                  </td>
+                </tr>
+                <tr>
+                  <th>Equipment Model : </th>
+                  <td>
+                    {{scannerWorkOrder?.equipment_model}}
+                  </td>
+                </tr>
+                <tr>
+                  <th>Assign To : </th>
+                  <td>
+                    {{scannerWorkOrder?.assign_to}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-5 col-sm-5 col-xs-12 invoice-client-info">
+            <table class="table table-responsive invoice-table invoice-order table-borderless">
+              <tbody>
+                <tr>
+                  <th>Status : </th>
+                  <td>{{scannerWorkOrder?.status}}</td>
+                </tr>
+                <tr>
+                  <th>Equipment Name : </th>
+                  <td>{{scannerWorkOrder?.equipment_name}}</td>
+                </tr>
+                <tr>
+                  <th>Process : </th>
+                  <td>
+                    <span class="label label-warning">{{scannerWorkOrder?.action_taken}}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Work Order Type : </th>
+                  <td>{{scannerWorkOrder?.wo_ordertype}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-sm-12 centered-content">
+            <div class="btn-group mt-10">
+              <button type="button" class="btn btn-primary btn-sm" awNextStep>Continue</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </aw-wizard-step>
+    <aw-wizard-step stepTitle="Parts"
+      [navigationSymbol]="{ symbol: '&#xe88c;', fontFamily: 'feather' }" [style.font-weight]="900">
+      <div class="col-sm-12">
+        <h6>Part List:</h6>
+        <table mat-table [dataSource]="dataSourcePart"
+          class="table table-responsive invoice-table invoice-order table-borderless">
+
+          <ng-container matColumnDef="part_id">
+            <th mat-header-cell *matHeaderCellDef> #Id </th>
+            <td mat-cell *matCellDef="let elementPart"> {{elementPart.part_id}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="part_name">
+            <th mat-header-cell *matHeaderCellDef> Part Name </th>
+            <td mat-cell *matCellDef="let elementPart"> {{elementPart.part_name}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="part_code">
+            <th mat-header-cell *matHeaderCellDef> Part Code </th>
+            <td mat-cell *matCellDef="let elementPart"> {{elementPart.part_code}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="serial_no">
+            <th mat-header-cell *matHeaderCellDef> Serial No </th>
+            <td mat-cell *matCellDef="let elementPart"> {{elementPart.serial_no}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef> Actions </th>
+            <td mat-cell *matCellDef="let elementPart">
+              <a href="javascript:void(0)" (click)="editItem(elementPart)">Edit</a> |
+              <a href="javascript:void(0)" (click)="deleteItem(elementPart.id)">Delete</a>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedPartColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedPartColumns;"
+            [ngClass]="{'editable-row': workorderPart.id === row.id}"></tr>
+        </table>
+        <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+      </div>
+      <div class="col-sm-12 centered-content">
+        <div class="btn-group mt-10">
+          <button type="button" class="btn btn-secondary btn-sm" awPreviousStep>Back</button>
+          <button type="button" class="btn btn-primary btn-sm" awNextStep>Continue</button>
+        </div>
+      </div>
+    </aw-wizard-step>
+    <aw-wizard-step stepTitle="Links & Files" [navigationSymbol]="{ symbol: '&#xe840;', fontFamily: 'feather' }">
+      <h6>Link:</h6>
+      <h6>File:</h6>
+      <div class="col-sm-12 centered-content">
+        <div class="btn-group mt-10">
+          <button type="button" class="btn btn-secondary btn-sm" awPreviousStep>Back</button>
+        </div>
+      </div>
+    </aw-wizard-step>
+  </aw-wizard>
+</app-card>

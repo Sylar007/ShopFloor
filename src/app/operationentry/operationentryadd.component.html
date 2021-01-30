@@ -1,0 +1,133 @@
+<app-card cardTitle="Production Entry" [options]="false">
+  <aw-wizard #wizard class="arc-wizard" navBarLayout="large-filled-symbols">
+    <aw-wizard-step stepTitle="Production Information"
+      [navigationSymbol]="{ symbol: '&#xe8e9;', fontFamily: 'feather' }">
+      <form action="javascript:" #navigationForm=ngForm>
+        <div class="row invoive-info">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="form-label">Choose Production Schedule : </label>
+              <button type="button" class="btn btn-primary btn-sm" (click)="openDialog()">Choose Schedule... </button>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+            </div>
+          </div>
+          <ng-container *ngIf="searchValid">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="lightfont">Schedule Type</label> :
+                <label class="form-control-label">{{schedulejobList.scheduleType}}</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="lightfont">Shift Type</label> :
+                <label class="form-control-label">{{schedulejobList.shiftType}}</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="lightfont">Workstation Name</label> :
+                <label class="form-control-label">{{schedulejobList.workstationName}}</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="lightfont">Required Quantity</label> :
+                <label class="form-control-label">{{schedulejobList.requiredQuantity}}</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="lightfont">Start Date</label> :
+                <label class="form-control-label">{{schedulejobList.startDate}}</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="lightfont">End Date</label> :
+                <label class="form-control-label">{{schedulejobList.endDate}}</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="lightfont">List of part</label> :
+                <ul>
+                  <li *ngFor="let part of schedulejobList.parts; let i = index">
+                    {{i+1}} - {{part.name}}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+        <div class="col-sm-12 centered-content">
+          <div class="btn-group mt-10">
+            <button type="button" [disabled]="!navigationForm.valid" (click)="saveStep1(navigationForm)"
+              class="btn btn-primary btn-sm" awNextStep>Continue</button>
+          </div>
+        </div>
+      </form>
+    </aw-wizard-step>
+    <aw-wizard-step stepTitle="Production Entry" [navigationSymbol]="{ symbol: '&#xe88c;', fontFamily: 'feather' }">
+      <form action="javascript:" #executeForm=ngForm>
+        <div class="row invoive-info">
+          <ng-container *ngIf="searchValid">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="lightfont">List of part</label> :
+                <ul>
+                  <li *ngFor="let part of schedulejobList.parts; let i = index">
+                    {{i+1}} - {{part.name}}
+                    <br><br>
+                    <div class="row invoive-info">
+                      <div class="col-md-4">
+                        <img [src]='part.file_url' [style.width.px]='imageWidth' [style.margin.px]='imageMargin'>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <div class="radio radio-success radio-fill d-inline">
+                            <input type="radio" name="radio{{i+1}}" id="{{part.name}}-p-fill-{{i+1}}"
+                              (change)='radioselected($event,part)' value=1 >
+                            <label for="{{part.name}}-p-fill-{{i+1}}" class="cr">Ok</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <div class="radio radio-danger radio-fill d-inline">
+                            <input type="radio" name="radio{{i+1}}" id="{{part.name}}-p-fill-{{i+2}}"
+                              (change)='radioselected($event,part)' value=0 >
+                            <label for="{{part.name}}-p-fill-{{i+2}}" class="cr">Not Ok</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <label class="lightfont">Required Quantity : {{schedulejobList.requiredQuantity}}</label><br>
+                        <label class="lightfont">Quantity Accepted: {{part.comply}}</label><br>
+                        <label class="lightfont">Quantity Rejected: {{part.not_comply}}</label>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+        <div class="col-sm-12 centered-content">
+          <div class="btn-group mt-10">
+            <button type="button" class="btn btn-secondary btn-sm" awPreviousStep>Back</button>&nbsp;&nbsp;
+            <button type="button" [disabled]="!executeForm.valid" (click)="saveStep2(executeForm);executeForm.reset()"
+              class="btn btn-primary btn-sm" awNextStep>Save</button>&nbsp;&nbsp;
+            <button type="button" [disabled]="!executeForm.valid" (click)="saveClose(executeForm)"
+              class="btn btn-success btn-sm" awNextStep>Close</button>&nbsp;&nbsp;
+            <button type="button" [disabled]="!executeForm.valid" (click)="callTechnician()"
+              class="btn btn-danger btn-sm" awNextStep>Call for Technician</button>
+          </div>
+        </div>
+      </form>
+    </aw-wizard-step>
+  </aw-wizard>
+</app-card>

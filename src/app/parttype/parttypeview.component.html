@@ -1,0 +1,22 @@
+<app-card cardTitle="Part Type Information" [options]="false">
+  <aw-wizard #wizard class="arc-wizard" navBarLayout="large-filled-symbols">
+    <aw-wizard-step stepTitle="Basic Info" [navigationSymbol]="{ symbol: '&#xe8e9;', fontFamily: 'feather' }">
+      <form action="javascript:">
+        <div class="row invoive-info">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="lightfont">Part Type Name</label> :
+              <label class="form-control-label">{{partType.name}}</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Description</label> :
+              <label class="form-control-label">{{partType.description}}</label>
+            </div>
+          </div>
+        </div>
+      </form>
+    </aw-wizard-step>
+  </aw-wizard>
+</app-card>

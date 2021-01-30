@@ -1,0 +1,89 @@
+<app-card cardTitle="Notification Information" [options]="false">
+  <aw-wizard #wizard class="arc-wizard" navBarLayout="large-filled-symbols">
+    <aw-wizard-step stepTitle="Basic Info" [navigationSymbol]="{ symbol: '&#xe8e9;', fontFamily: 'feather' }">
+      <form action="javascript:" #navigationForm=ngForm>
+        <div class="row invoive-info">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Notification Name</label>
+              <input class="form-control input-md" name="notificationName" type="text" placeholder="Enter Name"
+                [ngClass]="{'is-invalid': !notificationName.valid && (notificationName.dirty || notificationName.touched || isSubmit)}"
+                #notificationName="ngModel" required [(ngModel)]="formInput.notificationName">
+              <label *ngIf="!notificationName.valid && (notificationName.dirty || notificationName.touched || isSubmit)"
+                id="validation-notificationName-error"
+                class="error jquery-validation-error small form-text invalid-feedback">Please enter a Name
+                No</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+          </div>
+          <div class="col-md-6">
+            <label class="lightfont">Reminder</label>
+            <div class="form-group row">
+              <input class="form-control col-sm-5" name="notificationReminder" type="text" placeholder="Enter Reminder"
+                [ngClass]="{'is-invalid': !notificationReminder.valid && (notificationReminder.dirty || notificationReminder.touched || isSubmit)}"
+                #notificationReminder="ngModel" required [(ngModel)]="formInput.notificationReminder">
+              <label
+                *ngIf="!notificationReminder.valid && (notificationReminder.dirty || notificationReminder.touched || isSubmit)"
+                id="validation-notificationReminder-error"
+                class="error jquery-validation-error small form-text invalid-feedback">Please enter Reminder</label>
+              <select class="form-control col-sm-5" name="notificationReminderType"
+                id="notificationReminderType"
+                [ngClass]="{'is-invalid': !notificationReminderType.valid && (notificationReminderType.dirty || notificationReminderType.touched || isSubmit)}"
+                #notificationReminderType="ngModel" required [(ngModel)]="formInput.notificationReminderType">
+                <option [ngValue]="null">Select Reminder Type</option>
+                <option *ngFor="let reminderTypeSelection of reminderTypeSelections" [value]="reminderTypeSelection.id">
+                  {{reminderTypeSelection.name}}
+                </option>
+              </select>
+              <label
+                *ngIf="!notificationReminderType.valid && (notificationReminderType.dirty || notificationReminderType.touched || isSubmit)"
+                id="validation-notificationReminderType-error"
+                class="error jquery-validation-error small form-text invalid-feedback">The
+                Reminder selection should be required.</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="lightfont">Frequency</label>
+            <div class="form-group row">
+              <input class="form-control col-sm-5" name="notificationFrequency" type="text"
+                placeholder="Enter Frequency"
+                [ngClass]="{'is-invalid': !notificationFrequency.valid && (notificationFrequency.dirty || notificationFrequency.touched || isSubmit)}"
+                #notificationFrequency="ngModel" required [(ngModel)]="formInput.notificationFrequency">
+              <label
+                *ngIf="!notificationFrequency.valid && (notificationFrequency.dirty || notificationFrequency.touched || isSubmit)"
+                id="validation-notificationFrequency-error"
+                class="error jquery-validation-error small form-text invalid-feedback">Please enter Frequency</label>
+              <select class="form-control col-sm-5" name="notificationFrequencyType"
+                id="notificationFrequencyType"
+                [ngClass]="{'is-invalid': !notificationFrequencyType.valid && (notificationFrequencyType.dirty || notificationFrequencyType.touched || isSubmit)}"
+                #notificationFrequencyType="ngModel" required [(ngModel)]="formInput.notificationFrequencyType">
+                <option [ngValue]="null">Select Frequency Type</option>
+                <option *ngFor="let frequencyTypeSelection of frequencyTypeSelections" [value]="frequencyTypeSelection.id">
+                  {{frequencyTypeSelection.name}}
+                </option>
+              </select>
+              <label
+                *ngIf="!notificationFrequencyType.valid && (notificationFrequencyType.dirty || notificationFrequencyType.touched || isSubmit)"
+                id="validation-notificationFrequencyType-error"
+                class="error jquery-validation-error small form-text invalid-feedback">The
+                Frequency selection should be required.</label>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 centered-content">
+          <div class="btn-group mt-10">
+            <button type="button" [disabled]="!navigationForm.valid" (click)="saveStep1(navigationForm)"
+              class="btn btn-primary btn-sm">Save</button>
+          </div>
+        </div>
+      </form>
+    </aw-wizard-step>
+  </aw-wizard>
+</app-card>
+<app-toast uID="toastAlertAdd" toastTitle="EAMMS" toastCaption="Operation">
+  Record successfully added
+</app-toast>
+<app-toast uID="toastAlert" toastTitle="EAMMS" toastCaption="Operation">
+  Record successfully updated
+</app-toast>

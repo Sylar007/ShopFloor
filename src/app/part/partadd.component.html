@@ -1,0 +1,128 @@
+<app-card cardTitle="Part Information" [options]="false">
+  <form action="javascript:" #navigationForm=ngForm>
+    <div class="row invoive-info">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="lightfont">HIL Code</label>
+          <input class="form-control input-md" name="hil_code" type="text" placeholder="Enter HIL Code"
+            [ngClass]="{'is-invalid': !hil_code.valid && (hil_code.dirty || hil_code.touched || isSubmit)}"
+            #hil_code="ngModel" required [(ngModel)]="formInput.hil_code">
+          <label *ngIf="!hil_code.valid && (hil_code.dirty || hil_code.touched || isSubmit)"
+            id="validation-hil_code-error" class="error jquery-validation-error small form-text invalid-feedback">Please
+            enter a valid HIL Code</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="lightfont">Material Code</label>
+          <input class="form-control input-md" name="material_code" type="text" placeholder="Enter Material Code"
+            [ngClass]="{'is-invalid': !material_code.valid && (material_code.dirty || material_code.touched || isSubmit)}"
+            #material_code="ngModel" required [(ngModel)]="formInput.material_code">
+          <label *ngIf="!material_code.valid && (material_code.dirty || material_code.touched || isSubmit)"
+            id="validation-material_code-error"
+            class="error jquery-validation-error small form-text invalid-feedback">Please
+            enter a valid Material Code</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="lightfont">Material Description</label>
+          <input class="form-control input-md" name="material_description" type="text"
+            placeholder="Enter Material Description"
+            [ngClass]="{'is-invalid': !material_description.valid && (material_description.dirty || material_description.touched || isSubmit)}"
+            #material_description="ngModel" required [(ngModel)]="formInput.material_description">
+          <label
+            *ngIf="!material_description.valid && (material_description.dirty || material_description.touched || isSubmit)"
+            id="validation-material_description-error"
+            class="error jquery-validation-error small form-text invalid-feedback">Please
+            enter a valid Material Description</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="lightfont">Color</label>
+          <input class="form-control input-md" name="color" type="text" placeholder="Enter Color"
+            [ngClass]="{'is-invalid': !color.valid && (color.dirty || color.touched || isSubmit)}" #color="ngModel"
+            required [(ngModel)]="formInput.color">
+          <label *ngIf="!color.valid && (color.dirty || color.touched || isSubmit)" id="validation-color-error"
+            class="error jquery-validation-error small form-text invalid-feedback">Please
+            enter a valid Color</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="lightfont">Back Code</label>
+          <input class="form-control input-md" name="back_code" type="text" placeholder="Enter Back Code"
+            [ngClass]="{'is-invalid': !back_code.valid && (back_code.dirty || back_code.touched || isSubmit)}"
+            #back_code="ngModel" required [(ngModel)]="formInput.back_code">
+          <label *ngIf="!back_code.valid && (back_code.dirty || back_code.touched || isSubmit)"
+            id="validation-back_code-error"
+            class="error jquery-validation-error small form-text invalid-feedback">Please
+            enter a valid Back Code</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-label">Customer</label>
+          <select class="form-control form-control-default" name="customer_id" id="customer_id"
+            [ngClass]="{'is-invalid': !customer_name.valid && (customer_name.dirty || customer_name.touched || isSubmit)}"
+            #customer_name="ngModel" required [(ngModel)]="formInput.customer_name">
+            <option [ngValue]="null">Select Customer</option>
+            <option *ngFor="let customerSelection of customerSelections" [value]="customerSelection.id">
+              {{customerSelection.customer_name}}</option>
+          </select>
+          <label *ngIf="!customer_name.valid && (customer_name.dirty || customer_name.touched || isSubmit)"
+            id="validation-customer_name-error"
+            class="error jquery-validation-error small form-text invalid-feedback">The
+            Customer selection should be required.</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="lightfont">Model</label>
+          <input class="form-control input-md" name="model" type="text" placeholder="Enter Model"
+            [ngClass]="{'is-invalid': !model.valid && (model.dirty || model.touched || isSubmit)}" #model="ngModel"
+            required [(ngModel)]="formInput.model">
+          <label *ngIf="!model.valid && (model.dirty || model.touched || isSubmit)" id="validation-model-error"
+            class="error jquery-validation-error small form-text invalid-feedback">Please
+            enter a valid Model</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="lightfont">Part Name</label>
+          <input class="form-control input-md" name="part_name" type="text" placeholder="Enter Part Name"
+            [ngClass]="{'is-invalid': !part_name.valid && (part_name.dirty || part_name.touched || isSubmit)}"
+            #part_name="ngModel" required [(ngModel)]="formInput.part_name">
+          <label *ngIf="!part_name.valid && (part_name.dirty || part_name.touched || isSubmit)"
+            id="validation-part_name-error"
+            class="error jquery-validation-error small form-text invalid-feedback">Please
+            enter a valid Part Name</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="lightfont">Part No</label>
+          <input class="form-control input-md" name="part_no" type="text" placeholder="Enter Part No"
+            [ngClass]="{'is-invalid': !part_no.valid && (part_no.dirty || part_no.touched || isSubmit)}"
+            #part_no="ngModel" required [(ngModel)]="formInput.part_no">
+          <label *ngIf="!part_no.valid && (part_no.dirty || part_no.touched || isSubmit)" id="validation-part_no-error"
+            class="error jquery-validation-error small form-text invalid-feedback">Please
+            enter a valid Part No</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="lightfont">Part Image</label>
+          <input type="file" class="form-control input-md"  (change)="selectFile($event)" />
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 centered-content">
+      <div class="btn-group mt-10">
+        <button type="button" [disabled]="!navigationForm.valid" (click)="saveStep1(navigationForm)"
+          class="btn btn-primary btn-sm">Save</button>
+      </div>
+    </div>
+  </form>
+</app-card>

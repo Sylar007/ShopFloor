@@ -1,0 +1,156 @@
+<app-card cardTitle="Equipment Model Information" [options]="false">
+  <aw-wizard #wizard class="arc-wizard" navBarLayout="large-filled-symbols">
+    <aw-wizard-step stepTitle="Basic Info" [navigationSymbol]="{ symbol: '&#xe8e9;', fontFamily: 'feather' }">
+      <form action="javascript:">
+        <div class="row invoive-info">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Equipment Name</label> :
+              <label class="form-control-label">{{equipmentmodel.equipmentName}}</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Equipment Type Name</label> :
+              <label class="form-control-label">{{equipmentmodel.equipmentType}}</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Process Name</label> :
+              <label class="form-control-label">{{equipmentmodel.processName}}</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Model Name</label> :
+              <label class="form-control-label">{{equipmentmodel.modelName}}</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Model No</label> :
+              <label class="form-control-label">{{equipmentmodel.modelNo}}</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Manufacturer</label> :
+              <label class="form-control-label">{{equipmentmodel.manufacturer}}</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Sales Contact</label> :
+              <label class="form-control-label">{{equipmentmodel.sales_contact_name}},
+                {{equipmentmodel.sales_contact_no}}</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Support Contact</label> :
+              <label class="form-control-label">{{equipmentmodel.support_contact_name}},
+                {{equipmentmodel.support_contact_no}}</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Remarks</label> :
+              <label class="form-control-label">{{equipmentmodel.remarks}}</label>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 centered-content">
+          <div class="btn-group mt-10">
+            <button type="button" class="btn btn-primary btn-sm" awNextStep>Continue</button>
+          </div>
+        </div>
+      </form>
+    </aw-wizard-step>
+    <aw-wizard-step stepTitle="Specifications & Parts"
+      [navigationSymbol]="{ symbol: '&#xe88c;', fontFamily: 'feather' }">
+      <div class="col-sm-12">
+        <h6>Specification :</h6>
+        <mat-table [dataSource]="dataSource" matSort>
+          <!-- ID Column -->
+          <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef> Id # </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="id"> {{element.id}} </mat-cell>
+          </ng-container>
+
+          <!-- Progress Column -->
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef> Field Name </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="name"> {{element.name}} </mat-cell>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="field_value">
+            <mat-header-cell *matHeaderCellDef> Field Value </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="field_value">
+              {{element.field_value}} </mat-cell>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="actions"></mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"
+            [ngClass]="{'editable-row': equipmentModelField.id === row.id}">
+          </mat-row>
+        </mat-table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+      </div>
+      <p></p>
+      <p></p>
+      <div class="col-sm-12">
+        <h6>Part List:</h6>
+        <mat-table [dataSource]="dataSourcePart" matSort>
+          <!-- ID Column -->
+          <ng-container matColumnDef="part_name">
+            <mat-header-cell *matHeaderCellDef> Part Name </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="part_name"> {{element.part_name}} </mat-cell>
+          </ng-container>
+
+          <!-- Progress Column -->
+          <ng-container matColumnDef="part_code">
+            <mat-header-cell *matHeaderCellDef> Part Code </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="part_code"> {{element.part_code}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="actions"></mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedPartColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedPartColumns;"
+            [ngClass]="{'editable-row': equipmentModelPart.id === row.id}">
+          </mat-row>
+        </mat-table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+      </div>
+      <p></p>
+      <p></p>
+      <div class="col-sm-12 centered-content">
+        <div class="btn-group mt-10">
+          <button type="button" class="btn btn-secondary btn-sm" awPreviousStep>Back</button>
+          <button type="button" class="btn btn-primary btn-sm" awNextStep>Continue</button>
+        </div>
+      </div>
+    </aw-wizard-step>
+    <aw-wizard-step stepTitle="Links & Files" [navigationSymbol]="{ symbol: '&#xe840;', fontFamily: 'feather' }">
+      <h6>Files:</h6>
+      <div class="col-sm-12 centered-content" *ngIf="equipmentSet">
+      </div>
+      <div class="col-sm-12 centered-content">
+        <div class="btn-group mt-10">
+          <button type="button" class="btn btn-secondary btn-sm" awPreviousStep>Back</button>
+        </div>
+      </div>
+    </aw-wizard-step>
+  </aw-wizard>
+</app-card>

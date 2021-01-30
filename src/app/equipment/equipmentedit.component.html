@@ -1,0 +1,295 @@
+<app-card cardTitle="Equipment Information" [options]="false">
+  <aw-wizard #wizard class="arc-wizard" navBarLayout="large-filled-symbols">
+    <aw-wizard-step stepTitle="Basic Info" [navigationSymbol]="{ symbol: '&#xe8e9;', fontFamily: 'feather' }">
+      <form action="javascript:" #navigationForm=ngForm>
+        <div class="row invoive-info">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont" for="id">Equipment Id</label>
+              <input class="form-control input-md" id="id" name="id" type="text" #id="ngModel"
+                [(ngModel)]="formInput.id" readonly>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Model Name</label>
+              <select class="form-control form-control-default" name="model_name"
+                (change)='onOptionsEquipmentSelected($event)'
+                [ngClass]="{'is-invalid': !model_name.valid && (model_name.dirty || model_name.touched || isSubmit)}"
+                #model_name="ngModel" required [(ngModel)]="formInput.model_name">
+                <option [ngValue]="null">Select Model</option>
+                <option *ngFor="let modelSelection of modelSelections" [value]="modelSelection.id">
+                  {{modelSelection.model_name}}</option>
+              </select>
+              <label *ngIf="!model_name.valid && (model_name.dirty || model_name.touched || isSubmit)"
+                id="validation-model_name-error"
+                class="error jquery-validation-error small form-text invalid-feedback">The
+                Model selection should be required.</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Status :</label>
+              <select name="select" class="form-control form-control-default" name="status_name"
+                [ngClass]="{'is-invalid': !status_name.valid && (status_name.dirty || status_name.touched || isSubmit)}"
+                #status_name="ngModel" required [(ngModel)]="formInput.status_name">
+                <option [ngValue]="null">Select Status</option>
+                <option *ngFor="let statusSelection of statusSelections" [value]="statusSelection.id">
+                  {{statusSelection.name}}
+                </option>
+              </select>
+              <label *ngIf="!status_name.valid && (status_name.dirty || status_name.touched || isSubmit)"
+                id="validation-status_name-error"
+                class="error jquery-validation-error small form-text invalid-feedback">The
+                Status selection should be required.</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Serial No</label>
+              <input type="text" class="form-control" name="serial_no" placeholder="Enter Serial No"
+                [ngClass]="{'is-invalid': !serial_no.valid && (serial_no.dirty || serial_no.touched || isSubmit)}"
+                #serial_no="ngModel" required [(ngModel)]="formInput.serial_no">
+              <label *ngIf="!serial_no.valid && (serial_no.dirty || serial_no.touched || isSubmit)"
+                id="validation-serial_no-error"
+                class="error jquery-validation-error small form-text invalid-feedback">The
+                Serial No field should be required.</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Manufacturing Year</label>
+              <input type="text" class="form-control" name="manufacture_year" #manufacture_year="ngModel"
+                placeholder="Enter Manufacture Year" [(ngModel)]="formInput.manufacture_year">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="lightfont">Acquisition Date</label>
+            <div class="input-group">
+              <input type="text" class="form-control" autocomplete="off" placeholder="yyyy-mm-dd" name="acquisitionDate"
+                ngbDatepicker #d="ngbDatepicker"
+                [ngClass]="{'is-invalid': !acquisitionDate.valid && (acquisitionDate.dirty || acquisitionDate.touched || isSubmit)}"
+                #acquisitionDate="ngModel" required [(ngModel)]="formInput.acquisitionDate">
+              <div class="input-group-append">
+                <span class="input-group-text" (click)="d.toggle()">
+                  <i class="fa fa-calendar"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="lightfont">Warranty Expired Date</label>
+            <div class="input-group">
+              <input type="text" class="form-control" autocomplete="off" placeholder="yyyy-mm-dd" name="warrantyDate"
+                ngbDatepicker #dw="ngbDatepicker" #warrantyDate="ngModel" [(ngModel)]="formInput.warrantyDate">
+              <div class="input-group-append">
+                <span class="input-group-text" (click)="dw.toggle()">
+                  <i class="fa fa-calendar"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="lightfont">Delivery to Site Date</label>
+            <div class="input-group">
+              <input type="text" class="form-control" autocomplete="off" placeholder="yyyy-mm-dd" name="deliveryDate"
+                ngbDatepicker #dd="ngbDatepicker" #deliveryDate="ngModel" [(ngModel)]="formInput.deliveryDate">
+              <div class="input-group-append">
+                <span class="input-group-text" (click)="dd.toggle()">
+                  <i class="fa fa-calendar"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="lightfont">Installation Date</label>
+            <div class="input-group">
+              <input type="text" class="form-control" autocomplete="off" placeholder="yyyy-mm-dd"
+                name="installationDate" ngbDatepicker #di="ngbDatepicker" #installationDate="ngModel"
+                [(ngModel)]="formInput.installationDate">
+              <div class="input-group-append">
+                <span class="input-group-text" (click)="di.toggle()">
+                  <i class="fa fa-calendar"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="lightfont">Commissioning Date</label>
+            <div class="input-group">
+              <input type="text" class="form-control" autocomplete="off" placeholder="yyyy-mm-dd"
+                name="commissioningDate" ngbDatepicker #dc="ngbDatepicker" #commissioningDate="ngModel"
+                [(ngModel)]="formInput.commissioningDate">
+              <div class="input-group-append">
+                <span class="input-group-text" (click)="dc.toggle()">
+                  <i class="fa fa-calendar"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="lightfont">Sales Contact</label>
+            <div class="form-group row">
+              <input type="text" class="form-control col-sm-5" name="sales_name" id="sales_name"
+                [ngClass]="{'is-invalid': !sales_name.valid && (sales_name.dirty || sales_name.touched || isSubmit)}"
+                #sales_name="ngModel" required [(ngModel)]="formInput.sales_name"
+                placeholder="Enter Sales Contact Name">
+              <input type="text" class="form-control col-sm-5" name="sales_no" id="sales_no"
+                [ngClass]="{'is-invalid': !sales_no.valid && (sales_no.dirty || sales_no.touched || isSubmit)}"
+                #sales_no="ngModel" required [(ngModel)]="formInput.sales_no" placeholder="Enter Sales Contact No">
+              <label *ngIf="!sales_name.valid && (sales_name.dirty || sales_name.touched || isSubmit)"
+                id="validation-sales_name-error"
+                class="error jquery-validation-error small form-text invalid-feedback">The
+                Sales Contact field should be required.</label>
+              <label *ngIf="!sales_no.valid && (sales_no.dirty || sales_no.touched || isSubmit)"
+                id="validation-sales_no-error"
+                class="error jquery-validation-error small form-text invalid-feedback">The
+                Sales Contact No field should be required.</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="lightfont">Support Contact</label>
+            <div class="form-group row">
+              <input type="text" class="form-control col-sm-5" name="support_name" id="support_name"
+                #support_name="ngModel" [(ngModel)]="formInput.support_name" placeholder="Enter Support Name">
+              <input type="text" class="form-control col-sm-5" name="support_no" id="support_no" #support_no="ngModel"
+                [(ngModel)]="formInput.support_no" placeholder="Enter Support No">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 centered-content">
+          <div class="btn-group mt-10">
+            <button type="button" [disabled]="!navigationForm.valid" (click)="saveStep1(navigationForm)"
+              class="btn btn-primary btn-sm" awNextStep>Continue</button>
+          </div>
+        </div>
+      </form>
+    </aw-wizard-step>
+    <aw-wizard-step stepTitle="Parts & Specifications"
+      [navigationSymbol]="{ symbol: '&#xe88c;', fontFamily: 'feather' }">
+      <div class="col-sm-12">
+        <h6>Specification:</h6>
+        <form action="javascript:" #fieldForm=ngForm>
+          <div class="form-row">
+            <div class="form-group col-md-3">
+              <input type="text" class="form-control" name="name" placeholder="Enter Field Name"
+                [ngClass]="{'is-invalid': !name.valid && (name.dirty || name.touched || isSubmit)}" #name="ngModel"
+                required [(ngModel)]="formInputField.name">
+              <label *ngIf="!name.valid && (name.dirty || name.touched || isSubmit)" id="validation-name-error"
+                class="error jquery-validation-error small form-text invalid-feedback">The
+                Field Name should be required.</label>
+            </div>
+            <div class="form-group col-md-3">
+              <input type="text" class="form-control" name="field_value" placeholder="Enter Field Value"
+                [ngClass]="{'is-invalid': !field_value.valid && (field_value.dirty || field_value.touched || isSubmit)}"
+                #field_value="ngModel" required [(ngModel)]="formInputField.field_value">
+              <label *ngIf="!field_value.valid && (field_value.dirty || field_value.touched || isSubmit)"
+                id="validation-field_value-error"
+                class="error jquery-validation-error small form-text invalid-feedback">The
+                Field Value should be required.</label>
+            </div>
+            <div class="form-group col-md-6">
+              <ng-container *ngIf="isEditMode; else elseTemplate">
+                <button type="button" class="btn btn-primary" [disabled]="!fieldForm.valid"
+                  (click)="updateField(fieldForm)"><i class="feather icon-edit"></i>Update</button>
+                <button type="button" class="btn btn-secondary" (click)="cancelEdit(); fieldForm.reset()"><i
+                    class="feather icon-bell-off"></i>Cancel</button>
+              </ng-container>
+              <ng-template #elseTemplate>
+                <button type="button" class="btn btn-primary" [disabled]="!fieldForm.valid"
+                  (click)="addField(fieldForm)"><i class="feather icon-file-plus"></i>Add</button>
+              </ng-template>
+            </div>
+          </div>
+          <mat-table [dataSource]="dataSourceField" matSort>
+            <!-- ID Column -->
+            <ng-container matColumnDef="id">
+              <mat-header-cell *matHeaderCellDef> Id # </mat-header-cell>
+              <mat-cell *matCellDef="let element" data-label="id"> {{element.id}} </mat-cell>
+            </ng-container>
+
+            <!-- Progress Column -->
+            <ng-container matColumnDef="name">
+              <mat-header-cell *matHeaderCellDef> Field Name </mat-header-cell>
+              <mat-cell *matCellDef="let element" data-label="name"> {{element.name}} </mat-cell>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="field_value">
+              <mat-header-cell *matHeaderCellDef> Field Value </mat-header-cell>
+              <mat-cell *matCellDef="let element" data-label="field_value">
+                {{element.field_value}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <a href="javascript:void(0)" (click)="editItem(element)">Edit</a> |
+                <a href="javascript:void(0)" (click)="deleteItem(element.id)">Delete</a>
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedSpecColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedSpecColumns;"
+              [ngClass]="{'editable-row': equipmentField.id === row.id}">
+            </mat-row>
+          </mat-table>
+          <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+        </form>
+      </div>
+      <p></p>
+      <p></p>
+      <div class="col-sm-12">
+        <h6>Part List:</h6>
+        <mat-table [dataSource]="dataSourcePart" matSort>
+          <!-- ID Column -->
+          <ng-container matColumnDef="part_name">
+            <mat-header-cell *matHeaderCellDef> Part Name </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="part_name"> {{element.part_name}} </mat-cell>
+          </ng-container>
+
+          <!-- Progress Column -->
+          <ng-container matColumnDef="part_code">
+            <mat-header-cell *matHeaderCellDef> Part Code </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="part_code"> {{element.part_code}} </mat-cell>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="serial_no">
+            <mat-header-cell *matHeaderCellDef> Serial No </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="serial_no">
+              {{element.serial_no}} </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedPartColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedPartColumns;"
+            [ngClass]="{'editable-row': workorderPart.id === row.id}">
+          </mat-row>
+        </mat-table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+      </div>
+      <p></p>
+      <p></p>
+      <div class="col-sm-12 centered-content">
+        <div class="btn-group mt-10">
+          <button type="button" class="btn btn-secondary btn-sm" awPreviousStep>Back</button>
+          <button type="button" class="btn btn-primary btn-sm" awNextStep>Continue</button>
+        </div>
+      </div>
+    </aw-wizard-step>
+    <aw-wizard-step stepTitle="Miscellaneous Items" [navigationSymbol]="{ symbol: '&#xe840;', fontFamily: 'feather' }">
+      <div class="row invoive-info">
+        <div class="col-sm-12 centered-content" *ngIf="equipmentSet">
+          <app-equipmentfile [equipmentId]="equipmentId" [viewOnly]=false></app-equipmentfile>
+          <p></p>
+          <p></p>
+        </div>
+        <div class="col-sm-12 centered-content">
+          <div class="btn-group mt-10">
+            <button type="button" class="btn btn-secondary btn-sm" awPreviousStep>Back</button>
+          </div>
+        </div>
+      </div>
+    </aw-wizard-step>
+  </aw-wizard>
+</app-card>

@@ -1,0 +1,68 @@
+<mat-dialog-content class="mat-typography">
+  <div class="card">
+    <div class="card-header"></div>
+    <div class="col-sm-12">
+      <h4>Schedule Jobs</h4>
+      <mat-table [dataSource]="dataSource" matSort>
+        <!-- ID Column -->
+        <ng-container matColumnDef="scheduleType">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Schedule Type </mat-header-cell>
+          <mat-cell *matCellDef="let element" data-label="scheduleType"> {{element.scheduleType}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="shiftType">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Shift Type </mat-header-cell>
+          <mat-cell *matCellDef="let element" data-label="shiftType"> {{element.shiftType}} </mat-cell>
+        </ng-container>
+
+        <!-- Progress Column -->
+        <ng-container matColumnDef="workstationName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> WorkStation </mat-header-cell>
+          <mat-cell *matCellDef="let element" data-label="workstationName"> {{element.workstationName}} </mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="partSet">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Parts </mat-header-cell>
+          <mat-cell *matCellDef="let element" data-label="partSet">
+            <ul>
+              <li *ngFor="let part of element.parts; let i = index">
+                {{i+1}} - {{part.name}}
+              </li>
+            </ul>
+          </mat-cell>
+        </ng-container>
+
+        <!-- Color Column -->
+        <ng-container matColumnDef="startDate">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Scheduled Start Date </mat-header-cell>
+          <mat-cell *matCellDef="let element" data-label="startDate">
+            {{element.startDate | date:'dd/MM/yyyy'}} </mat-cell>
+        </ng-container>
+
+        <!-- Color Column -->
+        <ng-container matColumnDef="endDate">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Scheduled End Date </mat-header-cell>
+          <mat-cell *matCellDef="let element" data-label="endDate">
+            {{element.endDate | date:'dd/MM/yyyy'}} </mat-cell>
+        </ng-container>
+
+        <!-- Color Column -->
+        <ng-container matColumnDef="requiredQuantity">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Required Quantity </mat-header-cell>
+          <mat-cell *matCellDef="let element" data-label="requiredQuantity"> {{element.requiredQuantity}}
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let element; columns: displayedColumns"
+          (dblclick)="chooseSchedule(element.id)" [ngClass]="{'highlight': selectedRowIndex == element.id}">
+        </mat-row>
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Close</button>
+</mat-dialog-actions>

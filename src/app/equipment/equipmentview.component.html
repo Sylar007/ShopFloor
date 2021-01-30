@@ -1,0 +1,178 @@
+<app-card cardTitle="Equipment Information" [options]="false">
+  <aw-wizard #wizard class="arc-wizard" navBarLayout="large-filled-symbols">
+    <aw-wizard-step stepTitle="Basic Info" [navigationSymbol]="{ symbol: '&#xe8e9;', fontFamily: 'feather' }">
+      <form action="javascript:" #navigationForm=ngForm>
+        <div class="row invoive-info">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Equipment Id</label> :
+              <label class="form-label">{{formInput.id}}</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Model Name</label> :
+              <label class="form-label">{{formInput.model_name}}</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Status</label> :
+              <label class="form-label">{{formInput.status_name}}</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Serial No</label> :
+              <label class="form-label">{{formInput.serial_no}}</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Manufacturing Year</label> :
+              <label class="form-label">{{formInput.manufacture_year}}</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Acquisition Date</label> :
+              <label class="form-label">{{formInput.acquisitionDate | date:'dd/MM/yyyy'}} </label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Warranty Expired Date</label> :
+              <label class="form-label">{{formInput.warrantyDate | date:'dd/MM/yyyy'}} </label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Delivery to Site Date</label> :
+              <label class="form-label">{{formInput.deliveryDate | date:'dd/MM/yyyy'}} </label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Installation Date</label> :
+              <label class="form-label">{{formInput.installationDate | date:'dd/MM/yyyy'}} </label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Commissioning Date</label> :
+              <label class="form-label">{{formInput.commissioningDate | date:'dd/MM/yyyy'}} </label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Sales Contact</label> :
+              <label class="form-label">{{formInput.sales_name}}, {{formInput.sales_no}}</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Support Contact</label> :
+              <label class="form-label">{{formInput.support_name}}, {{formInput.support_no}}</label>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 centered-content">
+          <div class="btn-group mt-10">
+            <button type="button" class="btn btn-primary btn-sm" awNextStep>Continue</button>
+          </div>
+        </div>
+      </form>
+    </aw-wizard-step>
+    <aw-wizard-step stepTitle="Parts & Specifications"
+      [navigationSymbol]="{ symbol: '&#xe88c;', fontFamily: 'feather' }">
+      <div class="col-sm-12">
+        <h6>Specification:</h6>
+        <mat-table [dataSource]="dataSourceField" matSort>
+          <!-- ID Column -->
+          <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef> Id # </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="id"> {{element.id}} </mat-cell>
+          </ng-container>
+
+          <!-- Progress Column -->
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef> Field Name </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="name"> {{element.name}} </mat-cell>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="field_value">
+            <mat-header-cell *matHeaderCellDef> Field Value </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="field_value">
+              {{element.field_value}} </mat-cell>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="actions"></mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedSpecColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedSpecColumns;"
+            [ngClass]="{'editable-row': equipmentField.id === row.id}">
+          </mat-row>
+        </mat-table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+      </div>
+      <p></p>
+      <p></p>
+      <div class="col-sm-12">
+        <h6>Part List:</h6>
+        <mat-table [dataSource]="dataSourcePart" matSort>
+          <!-- ID Column -->
+          <ng-container matColumnDef="part_name">
+            <mat-header-cell *matHeaderCellDef> Part Name </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="part_name"> {{element.part_name}} </mat-cell>
+          </ng-container>
+
+          <!-- Progress Column -->
+          <ng-container matColumnDef="part_code">
+            <mat-header-cell *matHeaderCellDef> Part Code </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="part_code"> {{element.part_code}} </mat-cell>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="serial_no">
+            <mat-header-cell *matHeaderCellDef> Serial No </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="serial_no">
+              {{element.serial_no}} </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedPartColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedPartColumns;"
+            [ngClass]="{'editable-row': workorderPart.id === row.id}">
+          </mat-row>
+        </mat-table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+      </div>
+      <p></p>
+      <p></p>
+      <div class="col-sm-12 centered-content">
+        <div class="btn-group mt-10">
+          <button type="button" class="btn btn-secondary btn-sm" awPreviousStep>Back</button>
+          <button type="button" class="btn btn-primary btn-sm" awNextStep>Continue</button>
+        </div>
+      </div>
+    </aw-wizard-step>
+    <aw-wizard-step stepTitle="Miscellaneous Items" [navigationSymbol]="{ symbol: '&#xe840;', fontFamily: 'feather' }">
+      <div class="row invoive-info">
+        <div class="col-sm-12 centered-content" *ngIf="equipmentSet">
+          <app-equipmentfile [equipmentId]="equipmentId" [viewOnly]=true></app-equipmentfile>
+          <p></p>
+          <p></p>
+        </div>
+        <div class="col-sm-12 centered-content">
+          <div class="btn-group mt-10">
+            <button type="button" class="btn btn-secondary btn-sm" awPreviousStep>Back</button>
+          </div>
+        </div>
+      </div>
+    </aw-wizard-step>
+  </aw-wizard>
+</app-card>

@@ -1,0 +1,54 @@
+<div *ngIf="currentFile" class="progress">
+  <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+    attr.aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{ width: progress + '%' }">
+    {{ progress }}%
+  </div>
+</div>
+
+<ng-container *ngIf ="!viewOnly">
+  <label class="btn btn-default">
+    <input type="file" (change)="selectFile($event)" />
+  </label>
+
+  <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">
+    Upload
+  </button>
+</ng-container>
+
+<div class="alert alert-light" role="alert">{{ message }}</div>
+
+<div class="card">
+  <div class="card-header"></div>
+  <div class="col-sm-12">
+    <mat-table [dataSource]="dataSourceUpload" matSort>
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> ID # </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="id"> {{element.id}} </mat-cell>
+      </ng-container>
+
+      <!-- Progress Column -->
+      <ng-container matColumnDef="file_name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> File Name </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="file_name"> <a href="javascript:void(0)"
+            (click)="viewFile(element.id)">{{element.file_name}}</a> </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="file_type">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> File Type </mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="file_type"> {{element.file_type}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let element" data-label="actions"></mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedPartColumns"></mat-header-row>
+      <mat-row *matRowDef="let element; columns: displayedPartColumns">
+      </mat-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>

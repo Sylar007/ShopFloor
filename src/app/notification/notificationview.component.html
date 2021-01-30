@@ -1,0 +1,39 @@
+<app-card cardTitle="Notification Information" [options]="false">
+  <aw-wizard #wizard class="arc-wizard" navBarLayout="large-filled-symbols">
+    <aw-wizard-step stepTitle="Basic Info" [navigationSymbol]="{ symbol: '&#xe8e9;', fontFamily: 'feather' }">
+      <form action="javascript:">
+        <div class="row invoive-info">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Notification Name</label> :
+              <label class="form-control-label">{{notification.notificationName}}</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Reminder</label> :
+              <label class="form-control-label">{{notification.notificationReminder}} {{notification.notificationReminderType}}</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Frequency</label> :
+              <label class="form-control-label">{{notification.notificationFrequency}} {{notification.notificationFrequencyType}}</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="lightfont">Status</label> :
+              <label class="form-control-label">{{notification.notificationStatus}}</label>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 centered-content">
+          <div class="btn-group mt-10">
+            <button type="button" class="btn btn-primary btn-sm">Continue</button>
+          </div>
+        </div>
+      </form>
+    </aw-wizard-step>
+  </aw-wizard>
+</app-card>

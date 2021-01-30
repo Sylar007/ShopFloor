@@ -1,0 +1,91 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card [options]="false">
+      <div class="row invoive-info">
+        <div class="col-md-6"></div>
+        <div class="col-md-6 text-right">
+        <button type="button" class="btn btn-primary" (click)="addWorkOrder()"><i
+            class="feather icon-file-plus"></i>Add</button>
+        <button type="button" class="btn btn-secondary" (click)="editWorkOrder(this.selectedWorkOrderNo)"><i
+            class="feather icon-edit"></i>Update</button>
+          </div>
+      </div>
+      <mat-table [dataSource]="dataSource" matSort>
+        <!-- ID Column -->
+        <ng-container matColumnDef="workorderNo">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Work Order # </mat-header-cell>
+          <mat-cell *matCellDef="let element" data-label="workorderNo"> {{element.workorderNo}} </mat-cell>
+        </ng-container>
+
+        <!-- Progress Column -->
+        <ng-container matColumnDef="workorderType">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Type </mat-header-cell>
+          <mat-cell *matCellDef="let element" data-label="workorderType"> {{element.workorderType}} </mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="equipmentName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Equipment </mat-header-cell>
+          <mat-cell *matCellDef="let row" data-label="equipmentName"> {{row.equipmentName}} </mat-cell>
+        </ng-container>
+
+        <!-- Color Column -->
+        <ng-container matColumnDef="plannedStartDate">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Planned Start Date </mat-header-cell>
+          <mat-cell *matCellDef="let element" data-label="plannedStartDate">
+            {{element.plannedStartDate | date:'dd/MM/yyyy'}} </mat-cell>
+        </ng-container>
+
+        <!-- Color Column -->
+        <ng-container matColumnDef="plannedEndDate">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Planned End Date </mat-header-cell>
+          <mat-cell *matCellDef="let element" data-label="plannedEndDate">
+            {{element.plannedEndDate | date:'dd/MM/yyyy'}} </mat-cell>
+        </ng-container>
+
+        <!-- Color Column -->
+        <ng-container matColumnDef="startDate">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Start Date </mat-header-cell>
+          <mat-cell *matCellDef="let element" data-label="startDate"> {{element.startDate | date:'dd/MM/yyyy'}}
+          </mat-cell>
+        </ng-container>
+
+        <!-- Color Column -->
+        <ng-container matColumnDef="completedDate">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Completed Date </mat-header-cell>
+          <mat-cell *matCellDef="let element" data-label="completedDate"> {{element.completedDate | date:'dd/MM/yyyy'}}
+          </mat-cell>
+        </ng-container>
+
+        <!-- Color Column -->
+        <ng-container matColumnDef="status">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+          <mat-cell *matCellDef="let element" data-label="status"> {{element.status}}
+          </mat-cell>
+        </ng-container>
+
+        <!-- Color Column -->
+        <ng-container matColumnDef="location">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Location </mat-header-cell>
+          <mat-cell *matCellDef="let element" data-label="location"> {{element.location}}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Actions </th>
+          <td mat-cell *matCellDef="let element">
+            <a href="javascript:void(0)" (click)="editItem(element)">Edit</a> |
+            <a href="javascript:void(0)" (click)="deleteItem(element.id)">Delete</a>
+          </td>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let element; columns: displayedColumns" (click)="highlight(element)"
+          (dblclick)="openWorkOrder(element.workorderNo)" [ngClass]="{'highlight': selectedRowIndex == element.id}">
+        </mat-row>
+      </mat-table>
+      <!-- <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator> -->
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </app-card>
+  </div>
+</div>

@@ -1,0 +1,72 @@
+<app-card cardTitle="Part Information" [options]="false">
+  <form action="javascript:">
+    <div class="row invoive-info">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label class="lightfont">HIL Code</label> :
+          <label class="form-control-label">{{part.hil_code}}</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="lightfont">Material Code</label> :
+          <label class="form-control-label">{{part.material_code}}</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="lightfont">Material Description</label> :
+          <label class="form-control-label">{{part.material_description}}</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="lightfont">Color</label> :
+          <label class="form-control-label">{{part.color}}</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="lightfont">Back Code</label> :
+          <label class="form-control-label">{{part.back_code}}</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="lightfont">Customer Name</label> :
+          <label class="form-control-label">{{part.customer_name}}</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="lightfont">Model</label> :
+          <label class="form-control-label">{{part.model}}</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="lightfont">Part Name</label> :
+          <label class="form-control-label">{{part.part_name}}</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="lightfont">Part No.</label> :
+          <label class="form-control-label">{{part.part_no}}</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="lightfont">Part Image</label> :
+          <img [src]='imageUrl' [style.width.px]='imageWidth'
+            [style.margin.px]='imageMargin'>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 centered-content">
+      <div class="btn-group mt-10">
+        <button type="button" class="btn btn-primary btn-sm" (click)="saveStep1()">Back</button>
+      </div>
+    </div>
+  </form>
+</app-card>

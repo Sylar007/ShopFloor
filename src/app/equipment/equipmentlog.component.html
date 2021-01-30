@@ -1,0 +1,50 @@
+<app-card [options]="false">
+  <h4>Equipment Log</h4>
+  <form action="javascript:">
+    <div class="row invoive-info">
+      <div class="col-md-1 col-sm-1 col-xs-1">
+      </div>
+      <div class="col-md-5 col-sm-5 col-xs-12 invoice-client-info">
+        <table class="table table-responsive invoice-table invoice-order table-borderless">
+          <tbody>
+            <tr>
+              <th>Equipment Id : </th>
+              <td>{{scannerEquipment?.id}}</td>
+            </tr>
+            <tr>
+              <th>Equipment No : </th>
+              <td>
+                <span class="label label-warning">{{scannerEquipment?.equipment_no}}</span>
+              </td>
+            </tr>
+            <tr>
+              <th>Manufacture Year : </th>
+              <td>
+                {{scannerEquipment?.mfg_year}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-5 col-sm-5">
+        <table class="table table-responsive invoice-table invoice-order table-borderless">
+          <tbody>
+            <tr>
+              <th>Serial No : </th>
+              <td>{{scannerEquipment?.serial_no}}</td>
+            </tr>
+            <tr>
+              <th>Sales Contact Name : </th>
+              <td>
+                <span class="label label-warning">{{scannerEquipment?.sales_contact_name}}</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div *ngIf="equipmentSet">
+        <app-timeline [equipmentId]="equipmentId"></app-timeline>
+      </div>
+    </div>
+  </form>
+</app-card>
